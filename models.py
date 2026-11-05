@@ -1,4 +1,5 @@
 from enum import Enum
+from constants import *
 
 """ This file stores all necessary definitions.
 Every file can import it, it holds no logic, 
@@ -13,10 +14,15 @@ class Status(Enum):
     SKIPPED = 3
     FAILED = 4
 
-# Define a DishType Enum, to differentiate between source and target dishes
-class DishType(Enum):
+# Define a DishDefinition Enum, to differentiate between source and target dishes
+class DishDefinition(Enum):
     SOURCE = 0
     TARGET = 1
+
+# Define a DishType Enum, to differentiate between types of dishes
+class DishType(Enum):
+    PETRI = 0
+    NINETY_SIX_WELL = 1
 
 # Defines a Point class, to define (x,y) on the bed
 class Point:
@@ -48,9 +54,10 @@ class Colony:
 
 # Define a Dish class
 class Dish:
-    def __init__(self, id, dish_type:DishType):
+    def __init__(self, id, dish_def:DishDefinition, dish_type:DishType):
         self.id = id
-        self.type = dish_type
+        self.type = dish_def
+        self.dish_type = dish_type
         self.colonies = []
 
     def __str__(self):
@@ -62,7 +69,7 @@ class Dish:
 
 # Define a TipRack class, represents a pipette tip rack
 class TipRack:
-    def __init__(self, rows, columns):
+    def __init__(self, rows=TIP_RACK_ROWS, columns=TIP_RACK_COLUMNS):
         self.rows = rows
         self.columns = columns
         self.tips = []
@@ -72,12 +79,22 @@ class TipRack:
 
 # Define a Tip class, represents a single pipette tip
 class Tip:
-    def __init__(self, id, position:Point):
+    def __init__(self, id, position:Point, used=False):
         self.id = id
         self.position = position
         self.x = position.x
         self.y = position.y
-        self.used = False
+        self.used = used
 
     def __str__(self):
-        return f"Tip {self.id} at {self.position} is {'used' if self.used else 'available'}"
+        return f"Tip {self.id} at {self.position} is {'contaminated' if self.used else 'clean'}"
+
+# Define a Printer class, represents the 3D printer
+class Printer:
+    def __init__(self, port=None):
+        self.com_port = port
+
+# Define a camera class, the camera for the vision system
+class Camera:
+    def __init__(self, port=None):
+        self.com_port = port
