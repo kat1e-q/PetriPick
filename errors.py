@@ -1,4 +1,3 @@
-import models.py
 
 """ This file defines all custom errors that may be raised in the
 picking process. We send additional debug data for each error to
