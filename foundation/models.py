@@ -54,11 +54,12 @@ class Colony:
 
 # Define a Dish class
 class Dish:
-    def __init__(self, id, dish_def:DishDefinition, dish_type:DishType):
+    def __init__(self, id, dish_def:DishDefinition, dish_type:DishType, centre:Point):
         self.id = id
         self.type = dish_def
         self.dish_type = dish_type
         self.colonies = []
+        self.centre = centre
 
     def __str__(self):
             return f"Dish {self.id} has {len(self.colonies)} colonies"
@@ -75,7 +76,7 @@ class TipRack:
         self.tips = []
 
     def __str__(self):
-        return f"TipRack {self.id} has {len(self.tips)} tips"
+        return f"TipRack has {len(self.tips)} tips"
 
 # Define a Tip class, represents a single pipette tip
 class Tip:
