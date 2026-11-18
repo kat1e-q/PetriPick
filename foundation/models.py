@@ -46,7 +46,7 @@ class Colony:
     def __str__(self):
         return f"Colony {self.id} is {self.status.name}"
 
-    def checkPicked(self):
+    def check_picked(self):
         if self.status == Status.PICKED:
             return True
         else:
